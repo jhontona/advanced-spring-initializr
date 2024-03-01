@@ -1,6 +1,31 @@
 # AdvancedSpringInitializr
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.2.
+Based on the Spring initializer https://start.spring.io/, it provides the option to choose an architecture.
+
+## Configuración y Uso
+
+1. Clona el repositorio: `git clone https://github.com/jhontona/advanced-spring-initializr.git`
+2. Navega al directorio del proyecto: `cd advanced-spring-initializr`
+4. Ejecuta la aplicación: `ng serve`
+
+## Contribuciones
+
+¡Contribuciones son bienvenidas! Si deseas mejorar este proyecto, sigue estos pasos:
+
+1. Haz un fork del proyecto
+2. Crea una nueva rama: `git checkout -b nombre-de-la-rama`
+3. Realiza tus cambios y haz commit: `git commit -am 'Descripción de los cambios'`
+4. Sube tus cambios: `git push origin nombre-de-la-rama`
+5. Abre un pull request
+
+## Contacto
+
+Si tienes alguna pregunta o comentario, no dudes en ponerte en contacto con nosotros a través de [correo electrónico](mailto:contacto@jhontona.com) o [creando un issue](https://github.com/jhontona/advanced-spring-initializr/issues).
+
+---
+
+**¡Disfruta codificando!** 🚀
 
 ## Development server
 
