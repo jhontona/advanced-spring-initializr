@@ -1,71 +1,96 @@
 <h1>{{ title }}</h1>
-<form [formGroup]="springForm" class="form">
-<div>
-  <h2>Proyecto</h2>
-  <mat-radio-group aria-label="Selecciona una opcion" formControlName="project">
-    <mat-radio-button color="primary" value="1" disabled>Gradle - Groovy</mat-radio-button>
-    <mat-radio-button color="primary" value="2" disabled>Gradle - Kotlin</mat-radio-button>
-    <mat-radio-button color="primary" value="3">Maven</mat-radio-button>
-  </mat-radio-group>
-</div>
-<div>
-  <h2>Lenguaje</h2>
-  <mat-radio-group aria-label="Selecciona una opcion" formControlName="language">
-    <mat-radio-button color="primary" value="1">Java</mat-radio-button>
-    <mat-radio-button color="primary" value="2" disabled>Kotlin</mat-radio-button>
-    <mat-radio-button color="primary" value="3" disabled>Groovy</mat-radio-button>
-  </mat-radio-group>
-</div>
-<div>
-  <h2>Spring Boot</h2>
-  <mat-form-field>
-    <mat-label>Version SpringBoot</mat-label>
-    <mat-select formControlName="spring_boot" name="spring-boot-version">
-        <mat-option *ngFor="let version of versions" [value]="version">{{version}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-<div>
-  <h2>Metadata</h2>
-    <mat-form-field class="full-width">
-      <mat-label>Grupo</mat-label>
-      <input matInput formControlName="group" [errorStateMatcher]="matcher" placeholder="com.jhontona" (input)="onChangeData()">
-        <mat-error *ngIf="(springForm.get('group')?.hasError('pattern') && !springForm.get('group')?.hasError('required'))" ><small>Ingrese un dominio valido</small></mat-error>
-        <mat-error *ngIf="springForm.get('group')?.hasError('required')"><small>El grupo es <strong>requerido</strong></small></mat-error>
-    </mat-form-field>
-    <mat-form-field class="full-width">
-      <mat-label>Artefacto</mat-label>
-      <input matInput formControlName="artifact" [errorStateMatcher]="matcher" placeholder="Artefacto" (input)="onChangeData()">
-        <mat-error *ngIf="springForm.get('artifact')?.hasError('required')"><small>El artefacto es <strong>requerido</strong></small></mat-error>
-        <mat-error *ngIf="(springForm.get('artifact')?.hasError('minlength') && !springForm.get('artifact')?.hasError('required'))"><small>El nombre del artefacto es muy corto</small></mat-error>
-        <mat-error *ngIf="(springForm.get('artifact')?.hasError('maxLength') && !springForm.get('artifact')?.hasError('required'))"><small>El nombre del artefacto es muy largo</small></mat-error>
-        <mat-error *ngIf="(springForm.get('artifact')?.hasError('pattern') && !springForm.get('artifact')?.hasError('required'))"><small>Evita el uso de caracteres especiales o espacios en blanco, debe iniciar con una letra</small></mat-error>
-    </mat-form-field>
-    <mat-form-field class="full-width">
-      <mat-label>Nombre</mat-label>
-      <input matInput formControlName="name" [errorStateMatcher]="matcher" placeholder="Nombre">
-    </mat-form-field>
-    <mat-form-field class="full-width">
-      <mat-label>Descripción</mat-label>
-      <input matInput formControlName="description" [errorStateMatcher]="matcher" placeholder="Descripcion">
-    </mat-form-field>
-    <mat-form-field class="full-width">
-      <mat-label>Paquete</mat-label>
-      <input matInput formControlName="package_name" [errorStateMatcher]="matcher" placeholder="Paquete">
-    </mat-form-field>
-    <mat-radio-group formControlName="packaging">
-      <mat-label>Empaquetado</mat-label>
-      <mat-radio-button color="primary" value="1" >.jar</mat-radio-button>
-      <mat-radio-button color="primary" value="2" disabled>.war</mat-radio-button>
-    </mat-radio-group>
-    <mat-divider></mat-divider>
-    <mat-radio-group formControlName="java">
-      <mat-label>Java</mat-label>
-      <mat-radio-button *ngFor="let version of java_versions" color="primary" [value]="version" >{{version}}</mat-radio-button>
-    </mat-radio-group>
-</div>
-</form>
-
-
-<mat-slide-toggle color="primary">Slide Toggle</mat-slide-toggle>
-<button mat-raised-button color="primary" (click)="comprimirArchivos()">Comprimir Archivos</button>
+<mat-grid-list cols="2">
+  <mat-grid-tile [colspan]="1">
+    <form [formGroup]="springForm" class="form">
+    <div>
+      <h2>Proyecto</h2>
+      <mat-radio-group aria-label="Selecciona una opcion" formControlName="project">
+        <mat-radio-button color="primary" value="1" disabled>Gradle - Groovy</mat-radio-button>
+        <mat-radio-button color="primary" value="2" disabled>Gradle - Kotlin</mat-radio-button>
+        <mat-radio-button color="primary" value="3">Maven</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div>
+      <h2>Lenguaje</h2>
+      <mat-radio-group aria-label="Selecciona una opcion" formControlName="language">
+        <mat-radio-button color="primary" value="1">Java</mat-radio-button>
+        <mat-radio-button color="primary" value="2" disabled>Kotlin</mat-radio-button>
+        <mat-radio-button color="primary" value="3" disabled>Groovy</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div>
+      <h2>Spring Boot</h2>
+      <mat-form-field>
+        <mat-label>Version SpringBoot</mat-label>
+        <mat-select formControlName="spring_boot" name="spring-boot-version">
+            <mat-option *ngFor="let version of versions" [value]="version">{{version}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <h2>Metadata</h2>
+        <mat-form-field class="full-width">
+          <mat-label>Grupo</mat-label>
+          <input matInput formControlName="group" [errorStateMatcher]="matcher" placeholder="com.jhontona" (input)="onChangeData()">
+            <mat-error *ngIf="(springForm.get('group')?.hasError('pattern') && !springForm.get('group')?.hasError('required'))" ><small>Ingrese un dominio valido</small></mat-error>
+            <mat-error *ngIf="springForm.get('group')?.hasError('required')"><small>El grupo es <strong>requerido</strong></small></mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Artefacto</mat-label>
+          <input matInput formControlName="artifact" [errorStateMatcher]="matcher" placeholder="Artefacto" (input)="onChangeData()">
+            <mat-error *ngIf="springForm.get('artifact')?.hasError('required')"><small>El artefacto es <strong>requerido</strong></small></mat-error>
+            <mat-error *ngIf="(springForm.get('artifact')?.hasError('minlength') && !springForm.get('artifact')?.hasError('required'))"><small>El nombre del artefacto es muy corto</small></mat-error>
+            <mat-error *ngIf="(springForm.get('artifact')?.hasError('maxLength') && !springForm.get('artifact')?.hasError('required'))"><small>El nombre del artefacto es muy largo</small></mat-error>
+            <mat-error *ngIf="(springForm.get('artifact')?.hasError('pattern') && !springForm.get('artifact')?.hasError('required'))"><small>Evita el uso de caracteres especiales o espacios en blanco, debe iniciar con una letra</small></mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="name" [errorStateMatcher]="matcher" placeholder="Nombre">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Descripción</mat-label>
+          <input matInput formControlName="description" [errorStateMatcher]="matcher" placeholder="Descripcion">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Paquete</mat-label>
+          <input matInput formControlName="package_name" [errorStateMatcher]="matcher" placeholder="Paquete">
+        </mat-form-field>
+        <mat-radio-group formControlName="packaging">
+          <mat-label>Empaquetado</mat-label>
+          <mat-radio-button color="primary" value="1" >.jar</mat-radio-button>
+          <mat-radio-button color="primary" value="2" disabled>.war</mat-radio-button>
+        </mat-radio-group>
+        <mat-divider></mat-divider>
+        <mat-radio-group formControlName="java">
+          <mat-label>Java</mat-label>
+          <mat-radio-button *ngFor="let version of java_versions" color="primary" [value]="version" >{{version}}</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    </form></mat-grid-tile>
+  <mat-grid-tile>
+    <form [formGroup]="springForm" class="form">
+      <div>
+        <mat-form-field>
+          <mat-label>Arquitectura</mat-label>
+          <mat-select formControlName="architecture" name="spring-boot-version">
+              <mat-option [value]="'DDD'">Domain-Driven Design</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <h2>Librerias</h2>
+        <ul>
+          <li><mat-slide-toggle color="primary" disabled="true" checked="true">Lombok</mat-slide-toggle></li>
+          <li><mat-slide-toggle color="primary" disabled="true" checked="true">MapStruct</mat-slide-toggle></li>
+          <li><mat-slide-toggle color="primary" disabled="true" checked="true">Spring Data</mat-slide-toggle></li>
+          <li><mat-slide-toggle color="primary" disabled="true" checked="true">Spring Security</mat-slide-toggle></li>
+          <li><mat-slide-toggle color="primary" disabled="true" checked="true">Spring Web</mat-slide-toggle></li>
+          <li><mat-slide-toggle color="primary" disabled="true" checked="true">Swagger</mat-slide-toggle></li>
+        </ul>
+      </div>
+      <div style="margin-top: 1em;">        
+        <button mat-raised-button color="primary" (click)="comprimirArchivos()">Descargar proyecto</button>
+      </div>
+    </form>
+  </mat-grid-tile>
+</mat-grid-list>

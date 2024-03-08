@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { environment} from '../environments/environment';
+import { TemplateService } from './template.service';
 import * as JSZip from 'jszip';
 import * as FileSaver from 'file-saver';
 
@@ -18,7 +19,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Advanced spring initializr';
   versions = environment.spring_boot_versions;
   matcher = new MyErrorStateMatcher();
@@ -35,29 +36,44 @@ export class AppComponent {
     package_name: new FormControl({ value: environment.group + '.' + environment.artifact, disabled: true }),
     packaging: new FormControl('1'),
     java: new FormControl(this.java_versions[0]),
+    architecture: new FormControl('DDD'),
   });
+
+  pom = '';
+
+  constructor(private template: TemplateService) { }
+
+  ngOnInit() {
+    this.template.leerArchivo('pom.xml').subscribe(data => {
+      this.pom = data;
+    });
+  }
 
   onChangeData() {
     this.springForm.get('package_name')?.setValue(this.springForm.get('group')?.getRawValue() + '.' + this.springForm.get('artifact')?.getRawValue())
     this.springForm.get('name')?.setValue(this.springForm.get('artifact')?.getRawValue())
   }
 
+  getPom() : string {
+    console.log(this.springForm.get('group')?.getRawValue());
+    this.pom.replace(/{{group}}/g, this.springForm.get('group')?.getRawValue());
+      /*.replace(/{{artifact}}/g, this.springForm.get('artifact')?.getRawValue())
+      .replace(/{{description}}/g, this.springForm.get('description')?.getRawValue())
+      .replace(/{{java_version}}/g, this.springForm.get('java')?.getRawValue())
+      .replace(/{{spring_version}}/g, this.springForm.get('spring_boot')?.getRawValue());*/
+    console.log(this.pom);
+    return this.pom;
+  }
+
   async comprimirArchivos() {
     const zip = new JSZip();
-    
-    // Agrega archivos al zip
-    zip.file('archivo1.txt', 'Contenido del archivo 1');
-    zip.file('archivo2.txt', 'Contenido del archivo 2');
-
-    // Crea una carpeta y agrega archivos a la carpeta
-    const carpeta = zip.folder('mi_carpeta');
-    carpeta?.file('archivo3.txt', 'Contenido del archivo 3');
-    carpeta?.file('archivo4.txt', 'Contenido del archivo 4');
+    const base = zip.folder(this.springForm.get('name')?.getRawValue());
+    base?.file('pom.xml', this.getPom());
 
     // Genera el archivo comprimido (ZIP)
     const contenidoZip = await zip.generateAsync({ type: 'blob' });
 
     // Descarga el archivo comprimido
-    FileSaver.saveAs(contenidoZip, 'archivos_comprimidos.zip');
+    FileSaver.saveAs(contenidoZip, this.springForm.get('name')?.getRawValue() + '.zip');
   }
 }
