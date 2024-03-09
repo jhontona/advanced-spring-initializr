@@ -1,6 +1,6 @@
 <h1>{{ title }}</h1>
-<mat-grid-list cols="2">
-  <mat-grid-tile [colspan]="1">
+<div class="container">
+  <div>
     <form [formGroup]="springForm" class="form">
     <div>
       <h2>Proyecto</h2>
@@ -66,15 +66,84 @@
           <mat-radio-button *ngFor="let version of java_versions" color="primary" [value]="version" >{{version}}</mat-radio-button>
         </mat-radio-group>
     </div>
-    </form></mat-grid-tile>
-  <mat-grid-tile>
+    </form></div>
+    <div>
     <form [formGroup]="springForm" class="form">
       <div>
+        <h2>Aplicación</h2>
         <mat-form-field>
           <mat-label>Arquitectura</mat-label>
           <mat-select formControlName="architecture" name="spring-boot-version">
               <mat-option [value]="'DDD'">Domain-Driven Design</mat-option>
           </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Puerto</mat-label>
+          <input matInput formControlName="port" [errorStateMatcher]="matcher" placeholder="Puerto">
+            <mat-error *ngIf="springForm.get('port')?.hasError('required')"><small>El puerto es <strong>requerido</strong></small></mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Entrada</mat-label>
+          <input matInput formControlName="path" [errorStateMatcher]="matcher" placeholder="Entrada">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Version</mat-label>
+          <input matInput formControlName="app_version" [errorStateMatcher]="matcher" placeholder="Version">
+            <mat-error *ngIf="springForm.get('app_version')?.hasError('required')"><small>La versión es <strong>requerida</strong></small></mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <h2>Seguridad</h2>
+        <mat-form-field class="full-width">
+          <mat-label>Usuario</mat-label>
+          <input matInput formControlName="user" [errorStateMatcher]="matcher" placeholder="Usuario">
+            <mat-error *ngIf="springForm.get('user')?.hasError('required')"><small>El usuario es <strong>requerido</strong></small></mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput formControlName="password" [errorStateMatcher]="matcher" placeholder="Contraseña">
+            <mat-error *ngIf="springForm.get('password')?.hasError('required')"><small>La contraseña es <strong>requerido</strong></small></mat-error>
+        </mat-form-field>
+      </div>   
+    </form>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8233504739325640"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-8233504739325640"
+     data-ad-slot="4836350471"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+  </div>
+  <div>
+    <form [formGroup]="springForm" class="form">
+      <div>
+        <h2>Documentación</h2>
+        <mat-form-field class="full-width">
+          <mat-label>Términos de uso</mat-label>
+          <input matInput formControlName="use_term" [errorStateMatcher]="matcher" placeholder="Términos">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Contacto</mat-label>
+          <input matInput formControlName="contact" [errorStateMatcher]="matcher" placeholder="Contacto">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Sitio web</mat-label>
+          <input matInput formControlName="web" [errorStateMatcher]="matcher" placeholder="Web">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Correo eléctronico</mat-label>
+          <input matInput formControlName="email" [errorStateMatcher]="matcher" placeholder="E-mail">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Licencia</mat-label>
+          <input matInput formControlName="license" [errorStateMatcher]="matcher" placeholder="Licencia">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>Política de provacidad</mat-label>
+          <input matInput formControlName="policy" [errorStateMatcher]="matcher" placeholder="Política">
         </mat-form-field>
       </div>
       <div>
@@ -84,13 +153,14 @@
           <li><mat-slide-toggle color="primary" disabled="true" checked="true">MapStruct</mat-slide-toggle></li>
           <li><mat-slide-toggle color="primary" disabled="true" checked="true">Spring Data</mat-slide-toggle></li>
           <li><mat-slide-toggle color="primary" disabled="true" checked="true">Spring Security</mat-slide-toggle></li>
+          <li><mat-slide-toggle color="primary" disabled="true" checked="true">Spring Test</mat-slide-toggle></li>
           <li><mat-slide-toggle color="primary" disabled="true" checked="true">Spring Web</mat-slide-toggle></li>
           <li><mat-slide-toggle color="primary" disabled="true" checked="true">Swagger</mat-slide-toggle></li>
         </ul>
-      </div>
-      <div style="margin-top: 1em;">        
-        <button mat-raised-button color="primary" (click)="comprimirArchivos()">Descargar proyecto</button>
-      </div>
+      </div>      
     </form>
-  </mat-grid-tile>
-</mat-grid-list>
+  </div>
+</div>
+<div style="display: grid; place-items: center;">      
+  <button mat-raised-button color="primary" (click)="comprimirArchivos()"><mat-icon>download</mat-icon> Descargar proyecto</button>
+</div>
